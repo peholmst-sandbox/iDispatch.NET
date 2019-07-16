@@ -8,8 +8,8 @@
     <ProjectGuid>{16D833D0-9DE3-4319-B742-7432172F37A5}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MapTilesTests</RootNamespace>
-    <AssemblyName>MapTilesTests</AssemblyName>
+    <RootNamespace>iDispatch.MapTiles.Tests</RootNamespace>
+    <AssemblyName>iDispatch.MapTiles.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="Etrs89Tm35FinConverterTest.cs" />
     <Compile Include="MapLeafIdentifierTest.cs" />
+    <Compile Include="MapLeafTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -4,13 +4,24 @@ namespace iDispatch.MapTiles
 {
     /// <summary>
     /// An identifier of an official Finnish map leaf.
+    /// See <a href="http://docs.jhs-suositukset.fi/jhs-suositukset/JHS197_liite8/JHS197_liite8.html">JHS 197: Appendix 8</a>
+    /// for more information.
     /// </summary>
     public struct MapLeafIdentifier
     {
         /// <summary>
-        /// The scale of the map leaf. A value of 5000 means a scale of 1:5000.
+        /// The scale factor to use when calculating the width of a map leaf at this <see cref="Level">level</see>.
+        /// The scale is realtive to the width of the top level leaves.
         /// </summary>
-        public int Scale { get; }
+        public double WidthScale { get; }
+        /// <summary>
+        /// The scale factor to use when calculating
+        /// </summary>
+        public double HeightScale { get; }
+        /// <summary>
+        /// Returns the level of this map leaf. A value of 0 is the top level and a value of 5 is the lowest level.
+        /// </summary>
+        public int Level { get; }
 
         private string _identifier;
 
@@ -52,7 +63,9 @@ namespace iDispatch.MapTiles
             {
                 throw new ArgumentException("Invalid leaf letter: " + leafLetter);
             }
-            Scale = 200000;
+            WidthScale = 1.0;
+            HeightScale = 1.0;
+            Level = 0;
 
             if (identifier.Length >= 3)
             {
@@ -69,19 +82,25 @@ namespace iDispatch.MapTiles
                 {
                     RequireLeafNumber(leafNumber2, 1, 4);
                 }
-                Scale = 100000;
+                WidthScale /= 2;
+                HeightScale /= 2;
+                Level = 1;
 
                 if (identifier.Length >= 4)
                 {
                     var leafNumber3 = (int)Char.GetNumericValue(identifier[3]);
                     RequireLeafNumber(leafNumber3, 1, 4);
-                    Scale = 50000;
+                    WidthScale /= 2;
+                    HeightScale /= 2;
+                    Level = 2;
 
                     if (identifier.Length >= 5)
                     {
                         var leafNumber4 = (int)Char.GetNumericValue(identifier[4]);
                         RequireLeafNumber(leafNumber4, 1, 4);
-                        Scale = 25000;
+                        WidthScale /= 2;
+                        HeightScale /= 2;
+                        Level = 3;
 
                         if (identifier.Length >= 6)
                         {
@@ -90,13 +109,17 @@ namespace iDispatch.MapTiles
                             {
                                 throw new ArgumentException("Invalid leaf letter: " + leafLetter2);
                             }
-                            Scale = 10000;
+                            WidthScale /= 4; // At this stage, the leaf is split up into 8 squares
+                            HeightScale /= 2;
+                            Level = 4;
 
                             if (identifier.Length == 7)
                             {
                                 var leafNumber5 = (int)Char.GetNumericValue(identifier[6]);
                                 RequireLeafNumber(leafNumber5, 1, 4);
-                                Scale = 5000;
+                                WidthScale /= 2;
+                                HeightScale /= 2;
+                                Level = 5;
                             }
                             else if (identifier.Length > 7)
                             {
@@ -114,6 +137,22 @@ namespace iDispatch.MapTiles
             if (number < min || number > max)
             {
                 throw new ArgumentOutOfRangeException("Invalid leaf number: " + number);
+            }
+        }
+
+        /// <summary>
+        /// Returns the identifier of the parent leaf, if any.
+        /// </summary>
+        /// <returns>the parent leaf or null if this is a top level leaf.</returns>
+        public MapLeafIdentifier? GetParentIdentifier()
+        {
+            if (_identifier.Length == 2)
+            {
+                return null;
+            }
+            else
+            {
+                return new MapLeafIdentifier(_identifier.Substring(0, _identifier.Length - 1));
             }
         }
 
