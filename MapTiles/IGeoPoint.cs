@@ -3,7 +3,7 @@
     /**
      * <summary>A geographical point in some coordinate system.</summary>
      */
-    interface IGeoPoint
+    public interface IGeoPoint
     {
         /// <summary>The coordinate on the X-axis (typically Easting or Longitude)</summary>
         double X { get; }

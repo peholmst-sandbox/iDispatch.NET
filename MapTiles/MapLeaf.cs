@@ -8,5 +8,6 @@ namespace iDispatch.MapTiles
 {
     public class MapLeaf
     {
+        public GeoRect<EtrsTm35FinPoint> Bounds { get; private set; }
     }
 }
