@@ -3,7 +3,7 @@
 namespace iDispatch.MapTiles
 {
     // TODO Document me
-    public sealed class GeoRect<Point> where Point: IGeoPoint
+    public readonly struct GeoRect<Point> where Point: IGeoPoint
     {
         public double North { get; }
         public double East { get; }

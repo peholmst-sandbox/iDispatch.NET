@@ -7,7 +7,7 @@ namespace iDispatch.MapTiles
     /// See <a href="http://docs.jhs-suositukset.fi/jhs-suositukset/JHS197_liite8/JHS197_liite8.html">JHS 197: Appendix 8</a>
     /// for more information.
     /// </summary>
-    public struct MapLeaf
+    public readonly struct MapLeaf
     {
         private static readonly char[] RowLetters = { 'K', 'L', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X' };
         private const double SouthBound = 6570000;
@@ -121,6 +121,31 @@ namespace iDispatch.MapTiles
                 return 3 * WidthInMaxScale / scaleFraction;
             }
             return 0;
+        }
+
+        public override string ToString()
+        {
+            return Identifier.ToString();
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is MapLeaf && this == (MapLeaf)obj;
+        }
+
+        public override int GetHashCode()
+        {
+            return Identifier.GetHashCode();
+        }
+
+        public static bool operator ==(MapLeaf x, MapLeaf y)
+        {
+            return x.Identifier == y.Identifier;
+        }
+
+        public static bool operator !=(MapLeaf x, MapLeaf y)
+        {
+            return !(x == y);
         }
     }
 }

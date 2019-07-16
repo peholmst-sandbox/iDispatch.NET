@@ -7,7 +7,7 @@ namespace iDispatch.MapTiles
     /// See <a href="http://docs.jhs-suositukset.fi/jhs-suositukset/JHS197_liite8/JHS197_liite8.html">JHS 197: Appendix 8</a>
     /// for more information.
     /// </summary>
-    public struct MapLeafIdentifier
+    public readonly struct MapLeafIdentifier
     {
         /// <summary>
         /// The scale factor to use when calculating the width of a map leaf at this <see cref="Level">level</see>.
@@ -15,7 +15,8 @@ namespace iDispatch.MapTiles
         /// </summary>
         public double WidthScale { get; }
         /// <summary>
-        /// The scale factor to use when calculating
+        /// The scale factor to use when calculating the height of a map leaf at this <see cref="Level">level</see>.
+        /// This scale is relative to the height of the top level leaves.
         /// </summary>
         public double HeightScale { get; }
         /// <summary>
@@ -23,7 +24,7 @@ namespace iDispatch.MapTiles
         /// </summary>
         public int Level { get; }
 
-        private string _identifier;
+        private readonly string _identifier;
 
         /// <summary>
         /// Creates a new map leaf identifier.
