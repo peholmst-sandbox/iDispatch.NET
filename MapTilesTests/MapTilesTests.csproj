@@ -52,6 +52,7 @@
     <Compile Include="Etrs89Tm35FinConverterTest.cs" />
     <Compile Include="MapLeafIdentifierTest.cs" />
     <Compile Include="MapLeafTest.cs" />
+    <Compile Include="MapTileTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -7,7 +7,7 @@ namespace iDispatch.MapTiles
     /// See <a href="http://docs.jhs-suositukset.fi/jhs-suositukset/JHS197_liite8/JHS197_liite8.html">JHS 197: Appendix 8</a>
     /// for more information.
     /// </summary>
-    public readonly struct MapLeafIdentifier
+    public sealed class MapLeafIdentifier
     {
         /// <summary>
         /// The scale factor to use when calculating the width of a map leaf at this <see cref="Level">level</see>.
@@ -147,7 +147,7 @@ namespace iDispatch.MapTiles
         /// Returns the identifier of the parent leaf, if any.
         /// </summary>
         /// <returns>the parent leaf or null if this is a top level leaf.</returns>
-        public MapLeafIdentifier? GetParentIdentifier()
+        public MapLeafIdentifier GetParentIdentifier()
         {
             if (Identifier.Length == 2)
             {

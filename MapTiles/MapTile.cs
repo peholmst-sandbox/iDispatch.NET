@@ -6,7 +6,7 @@ namespace iDispatch.MapTiles
     /// A map tile with a constant pixel size. The combination of zoom level, column and row is sufficient to uniquely
     /// identify any map tile and can be used as a basis when creating file names or database keys.
     /// </summary>
-    public readonly struct MapTile
+    public sealed class MapTile
     {
         /// <summary>
         /// The tile size in pixels (each tile is a square).
@@ -72,6 +72,35 @@ namespace iDispatch.MapTiles
         public override string ToString()
         {
             return string.Format("[Zoom: {0}; Column: {1}; Row: {2}]", ZoomLevel.Zoom, Column, Row);
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is MapTile && this == (MapTile)obj;
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                int hash = 13;
+                hash = (hash * 7) + ZoomLevel.GetHashCode();
+                hash = (hash * 7) + Column.GetHashCode();
+                hash = (hash * 7) + Row.GetHashCode();
+                return hash;
+            }
+        }
+
+        public static bool operator ==(MapTile x, MapTile y)
+        {
+            return x.ZoomLevel == y.ZoomLevel
+                && x.Column == y.Column
+                && x.Row == y.Row;
+        }
+
+        public static bool operator !=(MapTile x, MapTile y)
+        {
+            return !(x == y);
         }
     }
 }

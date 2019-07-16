@@ -3,7 +3,7 @@
     /// <summary>
     /// Specifies a zoom level for a specific map tile.
     /// </summary>
-    public readonly struct MapTileZoomLevel
+    public sealed class MapTileZoomLevel
     {
         /// <summary>
         /// The zoom level as a number. The lower the number, the higher the zoom level (and the lesser the details on the map).

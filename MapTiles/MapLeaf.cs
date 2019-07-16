@@ -7,7 +7,7 @@ namespace iDispatch.MapTiles
     /// See <a href="http://docs.jhs-suositukset.fi/jhs-suositukset/JHS197_liite8/JHS197_liite8.html">JHS 197: Appendix 8</a>
     /// for more information.
     /// </summary>
-    public readonly struct MapLeaf
+    public sealed class MapLeaf
     {
         private static readonly char[] RowLetters = { 'K', 'L', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X' };
         internal const double SouthBound = 6570000;
