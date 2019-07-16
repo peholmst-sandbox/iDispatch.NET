@@ -10,8 +10,8 @@ namespace iDispatch.MapTiles
     public readonly struct MapLeaf
     {
         private static readonly char[] RowLetters = { 'K', 'L', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X' };
-        private const double SouthBound = 6570000;
-        private const double WestBound = -76000;
+        internal const double SouthBound = 6570000;
+        internal const double WestBound = -76000;
         private const double WidthInMaxScale = 192000;
         private const double HeightInMaxScale = 96000;
 
@@ -31,7 +31,7 @@ namespace iDispatch.MapTiles
         public MapLeaf(MapLeafIdentifier identifier)
         {
             Identifier = identifier;
-            var identifierString = identifier.ToString();
+            var identifierString = identifier.Identifier;
             var rowIdentifier = identifierString[0];
             var columnIdentifier = identifierString[1];
 
@@ -125,7 +125,7 @@ namespace iDispatch.MapTiles
 
         public override string ToString()
         {
-            return Identifier.ToString();
+            return string.Format("[Identifier: {0}; Bounds: {1}]", Identifier, Bounds);
         }
 
         public override bool Equals(object obj)

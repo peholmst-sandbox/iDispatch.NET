@@ -54,6 +54,8 @@
     <Compile Include="MapLeaf.cs" />
     <Compile Include="MapLeafIdentifier.cs" />
     <Compile Include="MapTile.cs" />
+    <Compile Include="MapTileZoomLevel.cs" />
+    <Compile Include="MapTileZoomLevels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

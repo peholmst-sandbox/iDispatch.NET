@@ -13,18 +13,20 @@ namespace iDispatch.MapTiles
         /// The scale factor to use when calculating the width of a map leaf at this <see cref="Level">level</see>.
         /// The scale is realtive to the width of the top level leaves.
         /// </summary>
-        public double WidthScale { get; }
+        internal double WidthScale { get; }
+
         /// <summary>
         /// The scale factor to use when calculating the height of a map leaf at this <see cref="Level">level</see>.
         /// This scale is relative to the height of the top level leaves.
         /// </summary>
-        public double HeightScale { get; }
+        internal double HeightScale { get; }
+
         /// <summary>
         /// Returns the level of this map leaf. A value of 0 is the top level and a value of 5 is the lowest level.
         /// </summary>
         public int Level { get; }
 
-        private readonly string _identifier;
+        public string Identifier { get; }
 
         /// <summary>
         /// Creates a new map leaf identifier.
@@ -130,7 +132,7 @@ namespace iDispatch.MapTiles
                     }
                 }
             }
-            _identifier = identifier;
+            Identifier = identifier;
         }
 
         private static void RequireLeafNumber(int number, int min, int max)
@@ -147,19 +149,19 @@ namespace iDispatch.MapTiles
         /// <returns>the parent leaf or null if this is a top level leaf.</returns>
         public MapLeafIdentifier? GetParentIdentifier()
         {
-            if (_identifier.Length == 2)
+            if (Identifier.Length == 2)
             {
                 return null;
             }
             else
             {
-                return new MapLeafIdentifier(_identifier.Substring(0, _identifier.Length - 1));
+                return new MapLeafIdentifier(Identifier.Substring(0, Identifier.Length - 1));
             }
         }
 
         public override string ToString()
         {
-            return _identifier;
+            return string.Format("[Identifier: {0}; Level: {1}]", Identifier, Level);
         }
 
         public override bool Equals(object obj)
@@ -169,12 +171,12 @@ namespace iDispatch.MapTiles
 
         public override int GetHashCode()
         {
-            return _identifier.GetHashCode();
+            return Identifier.GetHashCode();
         }
 
         public static bool operator ==(MapLeafIdentifier x, MapLeafIdentifier y)
         {
-            return x._identifier == y._identifier;
+            return x.Identifier == y.Identifier;
         }
 
         public static bool operator !=(MapLeafIdentifier x, MapLeafIdentifier y)
