@@ -55,16 +55,21 @@ namespace iDispatch.MapTiles
             }
             Row = row;
 
-            double width = TileSizeInPixels * zoomLevel.PixelInMetersOnXAxis;
-            double height = TileSizeInPixels * zoomLevel.PixelInMetersOnYAxis;
+            double width = ZoomLevel.PixelsToMetersOnXAxis(TileSizeInPixels);
+            double height = ZoomLevel.PixelsToMetersOnYAxis(TileSizeInPixels);
 
             var southWestPoint = new EtrsTm35FinPoint(
-                MapLeaf.SouthBound + row * height,
-                MapLeaf.WestBound + column * width);
+                MapLeaf.SouthGridBound + row * height,
+                MapLeaf.WestGridBound + column * width);
+
+            if (!MapLeaf.GridBounds.Contains(southWestPoint))
+            {
+                throw new ArgumentOutOfRangeException("The map tile is outside the grid");
+            }
 
             var northEastPoint = new EtrsTm35FinPoint(
                 southWestPoint.Northing + height,
-                southWestPoint.Easting + width);
+                southWestPoint.Easting + width);        
 
             Bounds = new GeoRect<EtrsTm35FinPoint>(southWestPoint, northEastPoint);
         }
@@ -101,6 +106,29 @@ namespace iDispatch.MapTiles
         public static bool operator !=(MapTile x, MapTile y)
         {
             return !(x == y);
+        }
+
+        /// <summary>
+        /// Finds the map tile that contains the given point on the given zoom level. The point must be within <see cref="MapLeaf.GridBounds"/>.
+        /// </summary>
+        /// <param name="point">the point that should reside inside the returned map tile</param>
+        /// <param name="zoomLevel">the zoom level of the returned map tile</param>
+        /// <returns>the map tile that contains the given point</returns>
+        /// <exception cref="ArgumentOutOfRangeException">if the point is outside the grid bounds</exception>
+        public static MapTile FindMapTileContainingPoint(EtrsTm35FinPoint point, MapTileZoomLevel zoomLevel)
+        {
+            if (!MapLeaf.GridBounds.Contains(point))
+            {
+                throw new ArgumentOutOfRangeException("The point is outside the grid");
+            }
+
+            double width = zoomLevel.PixelsToMetersOnXAxis(TileSizeInPixels);
+            double height = zoomLevel.PixelsToMetersOnYAxis(TileSizeInPixels);
+
+            int column = (int)((point.Easting - MapLeaf.WestGridBound) / width);
+            int row = (int)((point.Northing - MapLeaf.SouthGridBound) / height);
+
+            return new MapTile(zoomLevel, column, row);
         }
     }
 }

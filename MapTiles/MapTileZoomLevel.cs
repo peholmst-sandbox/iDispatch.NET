@@ -33,9 +33,29 @@
             Description = description;
         }
 
+        /// <summary>
+        /// Converts the given number of pixels to meters on the X-axis.
+        /// </summary>
+        /// <param name="pixels">the number of pixels</param>
+        /// <returns>the number of meters</returns>
+        public double PixelsToMetersOnXAxis(int pixels)
+        {
+            return pixels * PixelInMetersOnXAxis;
+        }
+
+        /// <summary>
+        /// Converts the given number of pixels to meters on the Y-axis.
+        /// </summary>
+        /// <param name="pixels">the number of pixels</param>
+        /// <returns>the number of meters</returns>
+        public double PixelsToMetersOnYAxis(int pixels)
+        {
+            return pixels * PixelInMetersOnYAxis;
+        }
+
         public override string ToString()
         {
-            return Description;
+            return Description; // TODO Replace with more details
         }
 
         public override bool Equals(object obj)

@@ -45,5 +45,10 @@ namespace iDispatch.MapTiles
                 North = p1.Y;
             }
         }
+
+        public bool Contains(Point p)
+        {
+            return West <= p.X && East >= p.X && South <= p.Y && North >= p.Y;
+        }
     }
 }

@@ -10,10 +10,21 @@ namespace iDispatch.MapTiles
     public sealed class MapLeaf
     {
         private static readonly char[] RowLetters = { 'K', 'L', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X' };
-        internal const double SouthBound = 6570000;
-        internal const double WestBound = -76000;
-        private const double WidthInMaxScale = 192000;
-        private const double HeightInMaxScale = 96000;
+
+        internal const double SouthGridBound = 6570000;
+        internal const double NorthGridBound = 7818000;
+        internal const double WestGridBound = -76000;
+        internal const double EastGridBound = 788000;
+        /// <summary>
+        /// The bounds of the grid that contains the map leaves. All map leaves will fit inside this grid, but not all points in the grid
+        /// correspond to a map leaf (after all, Finland is not a rectangular country).
+        /// </summary>
+        public static readonly GeoRect<EtrsTm35FinPoint> GridBounds = new GeoRect<EtrsTm35FinPoint>(
+            new EtrsTm35FinPoint(SouthGridBound, WestGridBound),
+            new EtrsTm35FinPoint(NorthGridBound, EastGridBound));
+
+        private const double LeafWidthInMaxScale = 192000;
+        private const double LeafHeightInMaxScale = 96000;
 
         /// <summary>
         /// The map leaf identifier (e.g. V3133A3).
@@ -36,12 +47,12 @@ namespace iDispatch.MapTiles
             var columnIdentifier = identifierString[1];
 
             // We know for sure that the identifier is valid. Now we just have to calculate the bounds.
-            double height = HeightInMaxScale * identifier.HeightScale;
-            double width = WidthInMaxScale * identifier.WidthScale;
+            double height = LeafHeightInMaxScale * identifier.HeightScale;
+            double width = LeafWidthInMaxScale * identifier.WidthScale;
 
             // Calculate south-west point of the top leaf
-            double southOrigo = SouthBound + HeightInMaxScale * Array.IndexOf(RowLetters, rowIdentifier);
-            double westOrigo = WestBound + WidthInMaxScale * ((int)Char.GetNumericValue(columnIdentifier) - 2);
+            double southOrigo = SouthGridBound + LeafHeightInMaxScale * Array.IndexOf(RowLetters, rowIdentifier);
+            double westOrigo = WestGridBound + LeafWidthInMaxScale * ((int)Char.GetNumericValue(columnIdentifier) - 2);
 
             double southOffset = 0;
             double westOffset = 0;
@@ -101,7 +112,7 @@ namespace iDispatch.MapTiles
         {
             if (c == '2' || c == '4' || c == 'B' || c == 'D' || c == 'F' || c == 'H')
             {
-                return HeightInMaxScale / scaleFraction;
+                return LeafHeightInMaxScale / scaleFraction;
             }
             return 0;
         }
@@ -110,15 +121,15 @@ namespace iDispatch.MapTiles
         {
             if (c == '4' || c == '3' || c == 'D' || c == 'C')
             {
-                return WidthInMaxScale / scaleFraction;
+                return LeafWidthInMaxScale / scaleFraction;
             }
             else if (c == 'F' || c == 'F')
             {
-                return 2 * WidthInMaxScale / scaleFraction;
+                return 2 * LeafWidthInMaxScale / scaleFraction;
             }
             else if (c == 'H' || c == 'G')
             {
-                return 3 * WidthInMaxScale / scaleFraction;
+                return 3 * LeafWidthInMaxScale / scaleFraction;
             }
             return 0;
         }
