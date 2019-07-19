@@ -48,7 +48,17 @@ namespace iDispatch.MapTiles
 
         public bool Contains(Point p)
         {
-            return West <= p.X && East >= p.X && South <= p.Y && North >= p.Y;
+            return ContainsX(p.X) && ContainsY(p.Y);
+        }
+
+        public bool ContainsX(double x)
+        {
+            return West <= x && East >= x;
+        }
+
+        public bool ContainsY(double y)
+        {
+            return South <= y && North >= y;
         }
     }
 }

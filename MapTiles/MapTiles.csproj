@@ -31,6 +31,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationCore" />
     <Reference Include="System" />
     <Reference Include="System.Collections.Immutable, Version=1.2.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Collections.Immutable.1.5.0\lib\netstandard2.0\System.Collections.Immutable.dll</HintPath>
@@ -51,11 +52,15 @@
     <Compile Include="Etrs89Point.cs" />
     <Compile Include="EtrsTm35FinPoint.cs" />
     <Compile Include="IGeoPointConverter.cs" />
+    <Compile Include="IMimeType.cs" />
     <Compile Include="MapLeaf.cs" />
     <Compile Include="MapLeafIdentifier.cs" />
     <Compile Include="MapTile.cs" />
+    <Compile Include="MapTileFile.cs" />
+    <Compile Include="MapTileImage.cs" />
     <Compile Include="MapTileZoomLevel.cs" />
     <Compile Include="MapTileZoomLevels.cs" />
+    <Compile Include="PngMimeType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

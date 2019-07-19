@@ -45,13 +45,13 @@ namespace iDispatch.MapTiles
 
             if (column < 0)
             {
-                throw new ArgumentOutOfRangeException("Column cannot be negative");
+                throw new ArgumentOutOfRangeException("column");
             }
             Column = column;
 
             if (row < 0)
             {
-                throw new ArgumentOutOfRangeException("Row cannot be negative");
+                throw new ArgumentOutOfRangeException("row");
             }
             Row = row;
 
@@ -62,9 +62,13 @@ namespace iDispatch.MapTiles
                 MapLeaf.SouthGridBound + row * height,
                 MapLeaf.WestGridBound + column * width);
 
-            if (!MapLeaf.GridBounds.Contains(southWestPoint))
+            if (!MapLeaf.GridBounds.ContainsX(southWestPoint.X))
             {
-                throw new ArgumentOutOfRangeException("The map tile is outside the grid");
+                throw new ArgumentOutOfRangeException("column");
+            }
+            if (!MapLeaf.GridBounds.ContainsY(southWestPoint.Y))
+            {
+                throw new ArgumentOutOfRangeException("row");
             }
 
             var northEastPoint = new EtrsTm35FinPoint(
@@ -119,7 +123,7 @@ namespace iDispatch.MapTiles
         {
             if (!MapLeaf.GridBounds.Contains(point))
             {
-                throw new ArgumentOutOfRangeException("The point is outside the grid");
+                throw new ArgumentOutOfRangeException("point");
             }
 
             double width = zoomLevel.PixelsToMetersOnXAxis(TileSizeInPixels);
