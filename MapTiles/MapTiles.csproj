@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BackgroundMap.cs" />
     <Compile Include="Etrs89EtrsTm35FinConverter.cs" />
     <Compile Include="GeoConverters.cs" />
     <Compile Include="GeoRect.cs" />
@@ -52,6 +53,7 @@
     <Compile Include="Etrs89Point.cs" />
     <Compile Include="EtrsTm35FinPoint.cs" />
     <Compile Include="IGeoPointConverter.cs" />
+    <Compile Include="IMapTileImageRepository.cs" />
     <Compile Include="IMimeType.cs" />
     <Compile Include="MapLeaf.cs" />
     <Compile Include="MapLeafIdentifier.cs" />
@@ -62,6 +64,9 @@
     <Compile Include="MapTileZoomLevels.cs" />
     <Compile Include="PngMimeType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WorldFile.cs" />
+    <Compile Include="WorldFileDirectoryScanner.cs" />
+    <Compile Include="WorldFileImporter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
