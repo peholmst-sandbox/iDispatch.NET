@@ -22,10 +22,6 @@ namespace iDispatch.MapTiles.Importers
         /// </summary>
         public double ScaleY { get; }
         /// <summary>
-        /// The file containing the raster map image.
-        /// </summary>
-        public FileInfo RasterFile { get; }
-        /// <summary>
         /// X-coordinate of the center of the raster map image's upper left pixel in map units (typically meters).
         /// </summary>
         public double UpperLeftX { get; }
@@ -33,6 +29,12 @@ namespace iDispatch.MapTiles.Importers
         /// Y-coordinate of the center of the raster map image's upper left pixel in map units (typically meters).
         /// </summary>
         public double UpperLeftY { get; }
+        /// <summary>
+        /// The name of the raster map image file.
+        /// </summary>
+        public string RasterFileName { get; }
+
+        private FileInfo _rasterFile;
 
         /// <summary>
         /// Parses the world file of the given raster image file.
@@ -57,8 +59,20 @@ namespace iDispatch.MapTiles.Importers
             UpperLeftX = Double.Parse(worldFileLines[4].Trim(), CultureInfo.InvariantCulture);
             UpperLeftY = Double.Parse(worldFileLines[5].Trim(), CultureInfo.InvariantCulture);
 
-            RasterFile = rasterFile;
+            _rasterFile = rasterFile;
+            RasterFileName = rasterFile.Name;
         }
+
+        /// <summary>
+        /// Opens a stream that reads the raster map image.
+        /// </summary>
+        /// <returns>a stream.</returns>
+        public Stream ReadRaster()
+        {
+            return _rasterFile.OpenRead();
+        }
+
+        // TODO Refactor WorldFile so that you can create WorldFiles without actually having to touch the file system (use a separate parser for that).
 
         private static string ExtractWorldFileName(FileInfo rasterFile)
         {
