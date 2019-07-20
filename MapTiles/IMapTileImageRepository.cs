@@ -14,5 +14,7 @@ namespace iDispatch.MapTiles.Media
         ISet<BackgroundMap> GetBackgroundMaps();
 
         MapTileImage GetMapTileImage(BackgroundMap backgroundMap, MapTile mapTile);
+
+        void SaveMapTileImage(BackgroundMap backgroundMap, MapTileImage mapTileImage);
     }
 }

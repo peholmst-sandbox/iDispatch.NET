@@ -61,6 +61,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>TestFiles.resx</DependentUpon>
     </Compile>
+    <Compile Include="WorldFileImporterTest.cs" />
     <Compile Include="WorldFileTest.cs" />
   </ItemGroup>
   <ItemGroup>

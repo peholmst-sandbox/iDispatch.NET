@@ -64,10 +64,10 @@ namespace iDispatch.MapTiles.Importers
         }
 
         /// <summary>
-        /// Opens a stream that reads the raster map image.
+        /// Creates a stream that reads the raster map image. The caller must take care of disposing the stream when no longer needed.
         /// </summary>
-        /// <returns>a stream.</returns>
-        public Stream ReadRaster()
+        /// <returns>an open stream.</returns>
+        public Stream OpenRasterStream()
         {
             return _rasterFile.OpenRead();
         }
