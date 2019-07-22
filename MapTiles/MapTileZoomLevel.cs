@@ -44,6 +44,16 @@
         }
 
         /// <summary>
+        /// Converts the given number of meters to pixels on the X-axis.
+        /// </summary>
+        /// <param name="meters">the number of meters</param>
+        /// <returns>the number of pixels</returns>
+        public int MetersToPixelsOnXAxis(double meters)
+        {
+            return (int)(meters / PixelInMetersOnXAxis);
+        }
+
+        /// <summary>
         /// Converts the given number of pixels to meters on the Y-axis.
         /// </summary>
         /// <param name="pixels">the number of pixels</param>
@@ -51,6 +61,16 @@
         public double PixelsToMetersOnYAxis(int pixels)
         {
             return pixels * PixelInMetersOnYAxis;
+        }
+
+        /// <summary>
+        /// Converts the given number of meters to pixels on the Y-axis.
+        /// </summary>
+        /// <param name="meters">the number of meters</param>
+        /// <returns>the number of pixels</returns>
+        public int MetersToPixelsOnYAxis(double meters)
+        {
+            return (int)(meters / PixelInMetersOnYAxis);
         }
 
         public override string ToString()

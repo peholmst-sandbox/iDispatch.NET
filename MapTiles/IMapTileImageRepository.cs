@@ -16,5 +16,7 @@ namespace iDispatch.MapTiles.Media
         MapTileImage GetMapTileImage(BackgroundMap backgroundMap, MapTile mapTile);
 
         void SaveMapTileImage(BackgroundMap backgroundMap, MapTileImage mapTileImage);
+
+        DateTime GetTimestamp(BackgroundMap backgroundMap, MapTile mapTile);
     }
 }

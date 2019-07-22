@@ -60,5 +60,11 @@ namespace iDispatch.MapTiles
         {
             return South <= y && North >= y;
         }
+
+        public override string ToString()
+        {
+            return String.Format("[West: {0}; North: {1}; East: {2}; South: {3}; Width: {4}; Height: {5}]",
+                West, North, East, South, Width, Height);
+        }
     }
 }
